@@ -1,5 +1,9 @@
 homepage: "https://www.example.com"
 documentation: "https://www.example.com/documentation"
 versions:
+  # Latest Version
+  - sha: 3f6a9f503ec3b02da97c5f7d049f791985739927
+    changeNotes: update template and fields.
+  # Older Versions
   - sha: 8f5007b3ccad873bdaeaf5452a5a29bb5c92db0d
     changeNotes: Initial release.
