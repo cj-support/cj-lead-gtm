@@ -1,6 +1,5 @@
-homepage: "https://www.cj.com/"
-documentation: "https://www.cj.com/"
+homepage: "https://www.example.com"
+documentation: "https://www.example.com/documentation"
 versions:
-  #Latest version
-  - sha: 1100a5bda807b8efc2d20e4f2e0a5b27cd7653f1
-    changeNotes: Initial seed tag upload
+  - sha: 8f5007b3ccad873bdaeaf5452a5a29bb5c92db0d
+    changeNotes: Initial release.
