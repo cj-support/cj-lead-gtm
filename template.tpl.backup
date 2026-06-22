@@ -5,11 +5,12 @@ Template Gallery Developer Terms of Service available at
 https://developers.google.com/tag-manager/gallery-tos (or such other URL as
 Google may provide), as modified from time to time.
 
+
 ___INFO___
 
 {
   "displayName": "CJ Affiliate - CJ Leads Tag",
-  "description": "Fires a CJ Affiliate lead conversion pixel. Reads the cjevent parameter from the URL, sets a cjevent cookie, and fires the CJ lead pixel with your Company ID, Action ID, and Order ID.",
+  "description": "CJ Lead Tag, more description to follow soon.",
   "securityGroups": [],
   "id": "ac",
   "type": "TAG",
@@ -23,6 +24,7 @@ ___INFO___
     "WEB"
   ]
 }
+
 
 ___TEMPLATE_PARAMETERS___
 
@@ -117,13 +119,17 @@ ___TEMPLATE_PARAMETERS___
   }
 ]
 
+
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 
 //Required Permissions
+const logToConsole = require('logToConsole');
 const encodeUriComponent = require('encodeUriComponent');
+const log = data.debug ? logToConsole : (() => {});
 const queryPermission = require('queryPermission');
 const setCookie = require('setCookie');
-const sendPixel = require('sendPixel');
+const copyFromDataLayer = require('copyFromDataLayer');
+const sendPixel = require('sendPixel'); //Enables send of CJ Image Tag
 const getCookieValues = require('getCookieValues');
 const getQueryParameters = require('getQueryParameters');
 const getUrl = require('getUrl');
@@ -147,25 +153,46 @@ var cookieValues;
 
 //Logging For Tests
 const onSuccess = () => {
+  log('CJ: Script loaded successfully.');
   data.gtmOnSuccess();
 };
 const onFailure = () => {
+  log('CJ: Script load failed.');
   data.gtmOnFailure();
 };
 
 //Only fire CJ Tag if Send Order Data Checkbox is enabled
 if(data.sendOrderData == true){
+//Enables user specified Data Layer array and array objects to be Read.
+const callInWindow = require('callInWindow');
+const getType = require('getType');
+var inputArray = data.productArray;
 
+
+
+
+
+// capture values of template fields
 var companyID = data.companyID;
 var actionID = data.actionID;
 var orderNumber = data.orderID;
+var coupon = data.coupon;
 var eventID = cookieValues;
+var quantity = '1';
+
+
 
 //Build CJ Tag
 var cjSrc = 'https://www.emjcd.com/u?CID=' + encodeUriComponent(companyID) + '&OID=' + orderNumber + '&TYPE=' + encodeUriComponent(actionID) + '&CJEVENT='+ eventID + '&DISCOUNT=0' + '&METHOD=IMG' + '&trackingSource=gtm' + '&v=conversionTag';
 
+
+
+
+
+
 sendPixel(cjSrc, onSuccess, onFailure);
 }
+
 
 ___WEB_PERMISSIONS___
 
@@ -226,6 +253,10 @@ ___WEB_PERMISSIONS___
   },
   {
     "instance": {
+      "key": {
+        "publicId": "read_data_layer",
+        "versionId": "1"
+      },
       "param": [
         {
           "key": "allowedKeys",
@@ -369,6 +400,10 @@ ___WEB_PERMISSIONS___
   },
   {
     "instance": {
+      "key": {
+        "publicId": "access_globals",
+        "versionId": "1"
+      },
       "param": [
         {
           "key": "keys",
@@ -507,12 +542,15 @@ ___WEB_PERMISSIONS___
   }
 ]
 
+
 ___TESTS___
 
 scenarios: []
 setup: ''
 
+
 ___NOTES___
 
 Created on 3/18/2021, 12:32:24 PM
+
 
