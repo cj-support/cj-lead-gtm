@@ -2,8 +2,10 @@ homepage: "https://www.cj.com"
 documentation: "https://docs.cj.com"
 versions:
   # Latest Version
+  - sha: 35b3b9691e3f21228032bf1bd53c498c84b874e2
+    changeNotes: update homepage and docs field, readme.
+  # Older Versions
   - sha: 3f6a9f503ec3b02da97c5f7d049f791985739927
     changeNotes: update template and fields.
-  # Older Versions
   - sha: 8f5007b3ccad873bdaeaf5452a5a29bb5c92db0d
     changeNotes: Initial release.
